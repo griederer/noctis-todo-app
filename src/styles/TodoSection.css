@@ -1,0 +1,183 @@
+.todo-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background: 
+    /* Technical blueprint grid */
+    repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(59, 130, 246, 0.02) 30px, rgba(59, 130, 246, 0.02) 31px),
+    repeating-linear-gradient(90deg, transparent, transparent 30px, rgba(59, 130, 246, 0.02) 30px, rgba(59, 130, 246, 0.02) 31px),
+    /* Main gradient */
+    linear-gradient(135deg, #000000 0%, #111111 50%, #000000 100%);
+  background-size: 100% 100%, 100% 100%, 100% 100%;
+  min-height: calc(100vh - 200px);
+  position: relative;
+}
+
+.todo-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    /* Golden ratio spiral overlay */
+    radial-gradient(circle at 38% 38%, transparent 20%, rgba(255, 255, 255, 0.01) 21%, transparent 22%),
+    radial-gradient(circle at 38% 38%, transparent 32%, rgba(255, 255, 255, 0.01) 33%, transparent 34%),
+    radial-gradient(circle at 38% 38%, transparent 52%, rgba(255, 255, 255, 0.01) 53%, transparent 54%),
+    /* Original grid pattern */
+    linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, 0.03) 25%, rgba(255, 255, 255, 0.03) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.03) 75%, rgba(255, 255, 255, 0.03) 76%, transparent 77%, transparent),
+    linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, 0.03) 25%, rgba(255, 255, 255, 0.03) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.03) 75%, rgba(255, 255, 255, 0.03) 76%, transparent 77%, transparent);
+  background-size: 500px 500px, 500px 500px, 500px 500px, 150px 150px, 150px 150px;
+  opacity: 0.4;
+  z-index: 0;
+}
+
+.todo-section::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  width: 200px;
+  height: 200px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+/* Technical diagram decorations */
+.todo-section .technical-decoration {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.todo-section .technical-decoration:nth-child(1) {
+  top: 5%;
+  left: 5%;
+  width: 80px;
+  height: 80px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transform: rotate(45deg);
+}
+
+.todo-section .technical-decoration:nth-child(1)::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -10%;
+  right: -10%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.todo-section .technical-decoration:nth-child(1)::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -10%;
+  bottom: -10%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Mathematical formula decorations */
+.todo-section .formula-decoration {
+  position: absolute;
+  font-family: 'Times New Roman', serif;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.03);
+  font-size: 18px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.todo-section .formula-decoration:nth-child(1) {
+  bottom: 15%;
+  left: 8%;
+  transform: rotate(-3deg);
+}
+
+.todo-section .formula-decoration:nth-child(2) {
+  top: 25%;
+  right: 12%;
+  transform: rotate(2deg);
+}
+
+.todo-container {
+  width: 100%;
+  max-width: 800px;
+  position: relative;
+  z-index: 1;
+}
+
+.todo-title {
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
+  text-transform: uppercase;
+  position: relative;
+}
+
+/* Measurement marks around title */
+.todo-title::before {
+  content: '> ';
+  color: rgba(255, 255, 255, 0.5);
+  position: relative;
+}
+
+.todo-title .measurement-mark {
+  position: absolute;
+  top: -10px;
+  left: -20px;
+  width: 10px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.todo-title .measurement-mark::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -5px;
+  width: 1px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+
+.todo-title::after {
+  content: '_';
+  animation: blink 1s infinite;
+  margin-left: 0.1em;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.todo-section-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

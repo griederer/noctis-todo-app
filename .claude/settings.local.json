@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm start)",
+      "Bash(lsof:*)",
+      "Bash(PORT=3001 npm start)",
+      "Bash(python3:*)",
+      "Bash(pkill:*)",
+      "Bash(npx http-server:*)",
+      "Bash(open:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(cp:*)",
+      "Bash(curl:*)",
+      "Bash(firebase hosting:sites:list:*)",
+      "Bash(firebase hosting:channel:list:*)",
+      "WebFetch(domain:noctis-todo.web.app)",
+      "WebFetch(domain:noctis-todo.firebaseapp.com)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx serve:*)",
+      "Bash(firebase deploy:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": false
+}

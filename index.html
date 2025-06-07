@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualization Gallery</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- React and Babel for client-side React components -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Three.js for 3D visualizations -->
+    <script src="https://unpkg.com/three@0.156.0/build/three.min.js"></script>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="nav-header">
+        <div class="nav-container">
+            <h1 class="site-title">Visualization Gallery</h1>
+            <nav class="visualization-selector">
+                <label for="viz-select">Select Visualization:</label>
+                <select id="viz-select" class="viz-dropdown">
+                    <option value="biblical-logos">Biblical Logos</option>
+                    <option value="particle-system">Particle System</option>
+                    <option value="flowing-torus-knot">Flowing Torus Knot</option>
+                    <option value="infinite-visualization">Infinite Spirals</option>
+                    <option value="wave-patterns">Wave Patterns</option>
+                    <!-- Add more visualizations here -->
+                </select>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-container">
+        <!-- Left Side: Visualization Container -->
+        <section class="visualization-section">
+            <div id="viz-container" class="viz-container">
+                <!-- React components will be mounted here -->
+            </div>
+        </section>
+
+        <!-- Right Side: Text Content -->
+        <section class="content-section">
+            <div class="content-wrapper">
+                <article id="content-area" class="content-area">
+                    <!-- Default content for Biblical Logos -->
+                    <div data-viz="biblical-logos" class="viz-content active">
+                        <h2 style="font-weight: 400; letter-spacing: 0.05em; margin-bottom: 2rem;">2</h2>
+                        
+                        <p style="margin-bottom: 0.5rem;">When we recognize patterns as elegant,</p>
+                        <p style="margin-bottom: 1rem;">other patterns become chaotic.</p>
+                        
+                        <p style="margin-bottom: 0.5rem;">When we praise symmetry,</p>
+                        <p style="margin-bottom: 2rem;">the notion of disorder is born.</p>
+                        
+                        <p style="margin-bottom: 0.5rem;">Unity and multiplicity create each other.</p>
+                        <p style="margin-bottom: 0.5rem;">Center and periphery define each other.</p>
+                        <p style="margin-bottom: 0.5rem;">Growth and decay determine each other.</p>
+                        <p style="margin-bottom: 0.5rem;">Sacred and profane distinguish each other.</p>
+                        <p style="margin-bottom: 2rem;">Form and void follow each other.</p>
+                        
+                        <p style="margin-bottom: 0.5rem;">Therefore the Wise Architect builds without claiming</p>
+                        <p style="margin-bottom: 0.5rem;">and teaches by silent demonstration.</p>
+                        <p style="margin-bottom: 0.5rem;">Patterns emerge and they accept them.</p>
+                        <p style="margin-bottom: 2rem;">Patterns dissolve and they let them go.</p>
+                        
+                        <p style="margin-bottom: 0.5rem;">They create without possessing.</p>
+                        <p style="margin-bottom: 0.5rem;">Design without demanding.</p>
+                        <p style="margin-bottom: 0.5rem;">Build without attachment.</p>
+                        <p style="margin-bottom: 0.5rem;">The work is done and then released.</p>
+                        <p style="margin-bottom: 1rem;">That is why it resonates forever.</p>
+                        
+                        <div style="margin-top: 3rem; display: flex; align-items: center; gap: 2rem;">
+                            <span style="font-size: 0.875rem; color: #999;">what if the patterns evolved?</span>
+                            <button style="padding: 0.5rem 1rem; border: 1px solid #ddd; background: white; cursor: pointer; font-size: 0.875rem;">Modify ↗</button>
+                            <code style="font-family: monospace; font-size: 0.875rem; color: #999;">&lt;/&gt;</code>
+                        </div>
+                    </div>
+                    
+                    <!-- Particle System content -->
+                    <div data-viz="particle-system" class="viz-content">
+                        <h2 style="font-weight: 400; letter-spacing: 0.05em; margin-bottom: 2rem;">3</h2>
+                        
+                        <p style="margin-bottom: 0.5rem;">When we define individual particles,</p>
+                        <p style="margin-bottom: 1rem;">the collective emerges unseen.</p>
+                        
+                        <p style="margin-bottom: 0.5rem;">When we trace specific paths,</p>
+                        <p style="margin-bottom: 2rem;">the pattern of the whole reveals itself.</p>
+                        
+                        <p style="margin-bottom: 0.5rem;">Attraction and repulsion dance together.</p>
+                        <p style="margin-bottom: 0.5rem;">Chaos and order interweave.</p>
+                        <p style="margin-bottom: 0.5rem;">Individual and collective merge as one.</p>
+                        <p style="margin-bottom: 0.5rem;">Movement and stillness contain each other.</p>
+                        <p style="margin-bottom: 2rem;">Local and global reflect the same truth.</p>
+                        
+                        <p style="margin-bottom: 0.5rem;">Therefore the System Designer observes without interfering</p>
+                        <p style="margin-bottom: 0.5rem;">and guides by setting initial conditions.</p>
+                        <p style="margin-bottom: 0.5rem;">Behaviors emerge and they study them.</p>
+                        <p style="margin-bottom: 2rem;">Patterns shift and they adapt with them.</p>
+                        
+                        <p style="margin-bottom: 0.5rem;">They simulate without controlling.</p>
+                        <p style="margin-bottom: 0.5rem;">Model without constraining.</p>
+                        <p style="margin-bottom: 0.5rem;">Influence without forcing.</p>
+                        <p style="margin-bottom: 0.5rem;">The system evolves and finds its balance.</p>
+                        <p style="margin-bottom: 1rem;">That is why it feels alive.</p>
+                    </div>
+                    
+                    <!-- Flowing Torus Knot content -->
+                    <div data-viz="flowing-torus-knot" class="viz-content">
+                        <h2 style="font-weight: 400; letter-spacing: 0.05em; margin-bottom: 2rem;">5</h2>
+                        
+                        <p style="margin-bottom: 0.5rem;">When we see form as permanent,</p>
+                        <p style="margin-bottom: 1rem;">dissolution becomes frightening.</p>
+                        
+                        <p style="margin-bottom: 0.5rem;">When we grasp at structure,</p>
+                        <p style="margin-bottom: 2rem;">flow becomes threatening.</p>
+                        
+                        <p style="margin-bottom: 0.5rem;">Assembly and disassembly are one process.</p>
+                        <p style="margin-bottom: 0.5rem;">Coherence and dissolution alternate endlessly.</p>
+                        <p style="margin-bottom: 0.5rem;">Form and formlessness exchange places.</p>
+                        <p style="margin-bottom: 0.5rem;">Binding and releasing follow natural cycles.</p>
+                        <p style="margin-bottom: 2rem;">Presence and absence define the rhythm.</p>
+                        
+                        <p style="margin-bottom: 0.5rem;">Therefore the Flow Master shapes without clinging</p>
+                        <p style="margin-bottom: 0.5rem;">and releases at the proper moment.</p>
+                        <p style="margin-bottom: 0.5rem;">Structures breathe and they allow it.</p>
+                        <p style="margin-bottom: 2rem;">Forms transform and they witness peacefully.</p>
+                        
+                        <p style="margin-bottom: 0.5rem;">They compose without permanence.</p>
+                        <p style="margin-bottom: 0.5rem;">Construct knowing decay.</p>
+                        <p style="margin-bottom: 0.5rem;">Unite accepting separation.</p>
+                        <p style="margin-bottom: 0.5rem;">The cycle completes and begins anew.</p>
+                        <p style="margin-bottom: 1rem;">That is why it never truly ends.</p>
+                    </div>
+                    
+                    <!-- Infinite Visualization content -->
+                    <div data-viz="infinite-visualization" class="viz-content">
+                        <h2 style="font-weight: 400; letter-spacing: 0.05em; margin-bottom: 2rem;">8</h2>
+                        
+                        <p style="margin-bottom: 0.5rem;">When we seek the edge of infinity,</p>
+                        <p style="margin-bottom: 1rem;">we find only new beginnings.</p>
+                        
+                        <p style="margin-bottom: 0.5rem;">When we trace the final spiral,</p>
+                        <p style="margin-bottom: 2rem;">another level reveals itself.</p>
+                        
+                        <p style="margin-bottom: 0.5rem;">Finite and infinite mirror each other.</p>
+                        <p style="margin-bottom: 0.5rem;">Bounded and boundless share one nature.</p>
+                        <p style="margin-bottom: 0.5rem;">Depth and surface curve into themselves.</p>
+                        <p style="margin-bottom: 0.5rem;">Beginning and ending meet at every point.</p>
+                        <p style="margin-bottom: 2rem;">Scale and perspective create all limits.</p>
+                        
+                        <p style="margin-bottom: 0.5rem;">Therefore the Recursion Sage explores without arriving</p>
+                        <p style="margin-bottom: 0.5rem;">and maps territory that expands with each step.</p>
+                        <p style="margin-bottom: 0.5rem;">Patterns nest within patterns endlessly.</p>
+                        <p style="margin-bottom: 2rem;">Understanding deepens without finding bottom.</p>
+                        
+                        <p style="margin-bottom: 0.5rem;">They calculate without completion.</p>
+                        <p style="margin-bottom: 0.5rem;">Iterate without termination.</p>
+                        <p style="margin-bottom: 0.5rem;">Recurse without stack overflow.</p>
+                        <p style="margin-bottom: 0.5rem;">The journey continues in all directions.</p>
+                        <p style="margin-bottom: 1rem;">That is why it cannot be exhausted.</p>
+                    </div>
+                    
+                    <!-- Wave Patterns content -->
+                    <div data-viz="wave-patterns" class="viz-content">
+                        <h2>Wave Patterns</h2>
+                        <p class="lead">Exploring the mathematics of wave interference and resonance.</p>
+                        <p>Watch as multiple wave sources create intricate interference patterns, revealing the hidden beauty of mathematical relationships.</p>
+                        <p><em>Visualization coming soon...</em></p>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- Include visualization components -->
+    <script type="text/javascript" src="visualizations/BiblicalLogos.js"></script>
+    <script type="text/javascript" src="visualizations/ParticleSystem.js"></script>
+    <script type="text/javascript" src="visualizations/FlowingTorusKnot.js"></script>
+    <script type="text/javascript" src="visualizations/InfiniteVisualization.js"></script>
+    <!-- Add more visualization scripts here -->
+    <!-- <script type="text/javascript" src="visualizations/WavePatterns.js"></script> -->
+    
+    <!-- Main application script -->
+    <script src="script.js"></script>
+</body>
+</html> 

@@ -1,0 +1,207 @@
+/* Variables CSS */
+:root {
+    --primary-color: #d4af37;
+    --primary-hover: #b8941f;
+    --secondary-color: #8b7355;
+    --background: #0a0a0f;
+    --surface: #12121a;
+    --surface-light: #1a1a25;
+    --text-primary: #e8e0d0;
+    --text-secondary: #a09080;
+    --border-color: #2a2a35;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --font-main: 'Georgia', 'Times New Roman', serif;
+    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+    --radius: 8px;
+    --transition: all 0.3s ease;
+    --gold: #d4af37;
+    --gold-light: #f4cf57;
+}
+
+/* Reset y estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background: linear-gradient(135deg, #0a0a0f 0%, #0f0f1a 50%, #0a0a0f 100%);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    line-height: 1.8;
+    font-size: 18px;
+    min-height: 100vh;
+}
+
+/* Utilidades */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    height: 100%;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Header */
+.main-header {
+    display: none;
+}
+
+/* Main Content */
+.main-content {
+    min-height: 100vh;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Layout principal */
+.content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    padding: 2rem;
+}
+
+/* Sección del patrón geométrico */
+.pattern-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.geometric-pattern {
+    width: 500px;
+    height: 500px;
+    position: relative;
+}
+
+/* Sección del texto */
+.text-section {
+    padding: 2rem;
+}
+
+.philosophical-text {
+    font-size: 1.1rem;
+    line-height: 2;
+    color: var(--text-primary);
+    letter-spacing: 0.02em;
+}
+
+.philosophical-text h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    color: var(--gold);
+    text-align: center;
+    letter-spacing: 0.1em;
+}
+
+.philosophical-text p {
+    margin-bottom: 1.5rem;
+    text-align: justify;
+    text-indent: 2rem;
+}
+
+.philosophical-text p:first-of-type {
+    text-indent: 0;
+}
+
+.philosophical-text p:first-of-type::first-letter {
+    font-size: 3rem;
+    float: left;
+    line-height: 1;
+    margin-right: 0.1em;
+    color: var(--gold);
+}
+
+/* SVG Pattern Styles */
+.hex-pattern {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 1;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.hex-pattern:hover {
+    stroke: var(--gold-light);
+    opacity: 1;
+}
+
+.hex-center {
+    fill: var(--gold);
+    opacity: 0.1;
+}
+
+/* Editor Section - Oculto por defecto */
+.editor-section {
+    display: none;
+}
+
+/* Posts Container - Oculto por defecto */
+.posts-container {
+    display: none;
+}
+
+/* Footer */
+.main-footer {
+    display: none;
+}
+
+/* Modal - Mantener estilos pero oculto */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+/* Animaciones */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(180deg);
+    }
+}
+
+.floating {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .content-wrapper {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .geometric-pattern {
+        width: 350px;
+        height: 350px;
+    }
+    
+    .philosophical-text {
+        font-size: 1rem;
+    }
+}

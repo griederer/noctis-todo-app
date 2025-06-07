@@ -1,0 +1,304 @@
+/* Scientific Journal Design Elements */
+
+/* Mathematical formula decorations */
+.math-formula {
+  position: absolute;
+  font-family: 'Times New Roman', 'Georgia', serif;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.05);
+  font-size: 16px;
+  pointer-events: none;
+  z-index: 0;
+  white-space: nowrap;
+}
+
+.math-formula.euler {
+  content: 'e^(iπ) + 1 = 0';
+}
+
+.math-formula.golden-ratio {
+  content: 'φ = (1 + √5) / 2';
+}
+
+.math-formula.pythagorean {
+  content: 'a² + b² = c²';
+}
+
+/* Geometric overlays */
+.geometric-overlay {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.geometric-overlay.circle-grid {
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 20%, transparent 80px, rgba(255, 255, 255, 0.01) 81px, transparent 82px),
+    radial-gradient(circle at 80% 80%, transparent 100px, rgba(255, 255, 255, 0.01) 101px, transparent 102px),
+    radial-gradient(circle at 50% 50%, transparent 120px, rgba(255, 255, 255, 0.01) 121px, transparent 122px);
+  opacity: 0.5;
+}
+
+.geometric-overlay.triangle-pattern {
+  width: 200px;
+  height: 200px;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transform: rotate(15deg);
+}
+
+/* Technical diagram elements */
+.technical-diagram {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.technical-diagram.compass {
+  width: 150px;
+  height: 150px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 50%;
+}
+
+.technical-diagram.compass::before,
+.technical-diagram.compass::after {
+  content: '';
+  position: absolute;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.technical-diagram.compass::before {
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+.technical-diagram.compass::after {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+/* Anatomical sketch elements */
+.anatomical-sketch {
+  position: absolute;
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.anatomical-sketch.vitruvian {
+  width: 200px;
+  height: 200px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+}
+
+.anatomical-sketch.vitruvian::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140px;
+  height: 140px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* Grid measurement overlay */
+.measurement-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: 
+    /* Fine grid */
+    repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(255, 255, 255, 0.01) 10px, rgba(255, 255, 255, 0.01) 10.5px),
+    repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(255, 255, 255, 0.01) 10px, rgba(255, 255, 255, 0.01) 10.5px),
+    /* Major grid */
+    repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255, 255, 255, 0.02) 50px, rgba(255, 255, 255, 0.02) 51px),
+    repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255, 255, 255, 0.02) 50px, rgba(255, 255, 255, 0.02) 51px);
+  opacity: 0.5;
+}
+
+/* Scientific notation decorations */
+.scientific-notation {
+  position: absolute;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.03);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.scientific-notation.coordinates {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.scientific-notation.coordinates::before {
+  content: '(';
+}
+
+.scientific-notation.coordinates::after {
+  content: ')';
+}
+
+/* Vintage paper effects */
+.paper-texture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background: 
+    /* Coffee stains */
+    radial-gradient(ellipse at 15% 70%, rgba(139, 69, 19, 0.02) 20%, transparent 40%),
+    radial-gradient(ellipse at 85% 30%, rgba(160, 82, 45, 0.015) 15%, transparent 35%),
+    /* Ink blots */
+    radial-gradient(circle at 60% 60%, rgba(0, 0, 0, 0.02) 5%, transparent 10%),
+    /* Age spots */
+    radial-gradient(circle at 30% 40%, rgba(139, 69, 19, 0.01) 2%, transparent 5%),
+    radial-gradient(circle at 70% 80%, rgba(160, 82, 45, 0.01) 1%, transparent 3%);
+  background-size: 300px 200px, 250px 180px, 100px 100px, 80px 80px, 90px 90px;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+/* Blueprint style elements */
+.blueprint-element {
+  position: absolute;
+  border: 1px dashed rgba(59, 130, 246, 0.1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blueprint-element.dimension-line {
+  width: 100px;
+  height: 0;
+  border-top: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+.blueprint-element.dimension-line::before,
+.blueprint-element.dimension-line::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-left: 1px solid rgba(59, 130, 246, 0.1);
+  border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+.blueprint-element.dimension-line::before {
+  left: -5px;
+  top: -5px;
+  transform: rotate(45deg);
+}
+
+.blueprint-element.dimension-line::after {
+  right: -5px;
+  top: -5px;
+  transform: rotate(-135deg);
+}
+
+/* Golden ratio spiral */
+.golden-spiral {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.03;
+}
+
+.golden-spiral::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0 100% 0 0;
+  transform-origin: bottom left;
+}
+
+.golden-spiral::after {
+  content: '';
+  position: absolute;
+  width: 61.8%;
+  height: 61.8%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0 100% 0 0;
+  bottom: 0;
+  left: 0;
+  transform-origin: bottom left;
+}
+
+/* Handwritten annotations */
+@keyframes sketch-wobble {
+  0%, 100% { transform: rotate(-1deg) translateX(0); }
+  50% { transform: rotate(1deg) translateX(1px); }
+}
+
+.handwritten-note {
+  position: absolute;
+  font-family: 'Brush Script MT', cursive;
+  color: rgba(255, 255, 255, 0.04);
+  font-size: 14px;
+  transform: rotate(-5deg);
+  pointer-events: none;
+  z-index: 0;
+  animation: sketch-wobble 10s ease-in-out infinite;
+}
+
+/* Technical crosshair */
+.crosshair {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.crosshair::before,
+.crosshair::after {
+  content: '';
+  position: absolute;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.crosshair::before {
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+
+.crosshair::after {
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+
+.crosshair .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}

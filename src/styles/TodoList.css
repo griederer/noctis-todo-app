@@ -1,0 +1,28 @@
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.empty-pattern {
+  margin-bottom: 1.5rem;
+}
+
+.empty-line {
+  width: 60px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 0.5rem auto;
+}
+
+.empty-text {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+}

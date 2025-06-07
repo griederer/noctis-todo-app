@@ -1,0 +1,200 @@
+.todo-form {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+/* Technical blueprint background */
+.todo-form::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background-image: 
+    /* High contrast crosshair pattern */
+    radial-gradient(circle at center, transparent 48%, rgba(255, 255, 255, 0.05) 49%, transparent 51%),
+    linear-gradient(0deg, transparent 49%, rgba(255, 255, 255, 0.05) 50%, transparent 51%),
+    linear-gradient(90deg, transparent 49%, rgba(255, 255, 255, 0.05) 50%, transparent 51%);
+  background-size: 100px 100px, 100px 100px, 100px 100px;
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.form-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+}
+
+.form-row > * {
+  flex: 1;
+  min-width: 0;
+}
+
+.todo-input {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  background: 
+    /* Visible measurement grid */
+    repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(255, 255, 255, 0.04) 20px, rgba(255, 255, 255, 0.04) 20.5px),
+    /* Visible vintage texture */
+    radial-gradient(circle at 20% 80%, rgba(245, 222, 179, 0.02) 2px, transparent 3px),
+    rgba(0, 0, 0, 0.7);
+  background-size: 100% 100%, 150px 150px, 100% 100%;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.todo-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.todo-input:focus {
+  outline: none;
+  background: rgba(0, 0, 0, 0.8);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+}
+
+.priority-select {
+  padding: 1rem 1.5rem;
+  background: 
+    radial-gradient(circle at 80% 20%, rgba(245, 222, 179, 0.025) 2px, transparent 3px),
+    rgba(0, 0, 0, 0.7);
+  background-size: 120px 120px, 100% 100%;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;
+  width: auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.priority-select option {
+  background: #000000;
+  color: #ffffff;
+}
+
+.priority-select:focus {
+  outline: none;
+  background: rgba(0, 0, 0, 0.8);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.date-input, .time-select {
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 160px;
+  width: auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.date-input:focus, .time-select:focus {
+  outline: none;
+  background: rgba(0, 0, 0, 0.8);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.time-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.time-select option {
+  background: #000000;
+  color: #ffffff;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+.add-button {
+  padding: 1rem 2rem;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Geometric accent on button */
+.add-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  width: 15px;
+  height: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transform: translateY(-50%) rotate(45deg);
+  transition: all 0.3s ease;
+}
+
+.add-button:hover::before {
+  left: 10px;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.add-button:hover {
+  background: rgba(0, 0, 0, 0.9);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.add-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .priority-select,
+  .date-input,
+  .time-select,
+  .add-button {
+    width: 100%;
+    min-width: unset;
+  }
+}

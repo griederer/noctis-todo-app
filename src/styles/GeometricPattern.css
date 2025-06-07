@@ -1,0 +1,128 @@
+.geometric-pattern {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  background-image: 
+    /* Scientific grid overlay */
+    repeating-linear-gradient(0deg, transparent, transparent 100px, rgba(255, 255, 255, 0.005) 100px, rgba(255, 255, 255, 0.005) 101px),
+    repeating-linear-gradient(90deg, transparent, transparent 100px, rgba(255, 255, 255, 0.005) 100px, rgba(255, 255, 255, 0.005) 101px),
+    /* Golden ratio guidelines */
+    linear-gradient(90deg, transparent 38%, rgba(255, 255, 255, 0.008) 38.2%, transparent 38.4%),
+    linear-gradient(0deg, transparent 38%, rgba(255, 255, 255, 0.008) 38.2%, transparent 38.4%);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+}
+
+.interference-pattern {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+}
+
+.interference-circle {
+  position: absolute;
+  border: 1px solid var(--line-pattern);
+  border-radius: 50%;
+  opacity: 0.1;
+  animation: ripple 20s ease-out infinite;
+}
+
+.interference-circle:nth-child(1) {
+  width: 300px;
+  height: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 0s;
+}
+
+.interference-circle:nth-child(2) {
+  width: 500px;
+  height: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 2s;
+}
+
+.interference-circle:nth-child(3) {
+  width: 700px;
+  height: 700px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 4s;
+}
+
+@keyframes ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Additional scientific elements */
+.geometric-pattern::before {
+  content: '';
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle at center, transparent 30%, rgba(255, 255, 255, 0.01) 31%, transparent 32%);
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+.geometric-pattern::after {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 100px;
+  height: 100px;
+  border: 1px dashed rgba(255, 255, 255, 0.02);
+  transform: rotate(45deg);
+}
+
+@media (max-width: 768px) {
+  .interference-pattern {
+    width: 400px;
+    height: 400px;
+  }
+
+  .interference-circle:nth-child(1) {
+    width: 150px;
+    height: 150px;
+  }
+
+  .interference-circle:nth-child(2) {
+    width: 250px;
+    height: 250px;
+  }
+
+  .interference-circle:nth-child(3) {
+    width: 350px;
+    height: 350px;
+  }
+  
+  .geometric-pattern::before,
+  .geometric-pattern::after {
+    display: none;
+  }
+} 
