@@ -4,7 +4,7 @@ import Header from './components/Header';
 import Navigation from './components/Navigation';
 import TodoSection from './components/TodoSection';
 import JournalSection from './components/JournalSection';
-import HabitsSection from './components/HabitsSection';
+import SimpleHabitsSection from './components/SimpleHabitsSection';
 import HelixAnimation from './components/HelixAnimation';
 import Login from './components/Login';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -75,7 +75,7 @@ function App() {
                   sectionName="Habits Section" 
                   fallbackMessage="There was an error loading your habits tracker. Please try again."
                 >
-                  <HabitsSection />
+                  <SimpleHabitsSection />
                 </SectionErrorBoundary>
               } />
             </Routes>
