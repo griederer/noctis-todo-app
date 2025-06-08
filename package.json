@@ -49,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "postcss": "^8.5.4",
     "puppeteer": "^24.10.0"
   }
 }

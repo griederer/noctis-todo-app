@@ -71,21 +71,58 @@ export const useTodos = (userId) => {
   }, []);
 
   const getFilteredTodos = useCallback((filter) => {
+    const today = new Date();
+    const todayStr = today.toISOString().split('T')[0];
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    
     switch (filter) {
       case 'active':
         return todos.filter(todo => !todo.completed);
       case 'completed':
         return todos.filter(todo => todo.completed);
+      case 'today':
+        return todos.filter(todo => {
+          if (todo.completed) return false;
+          if (!todo.dueDate) return true; // Tasks without due date show in today
+          return todo.dueDate === todayStr;
+        });
+      case 'upcoming':
+        return todos.filter(todo => {
+          if (todo.completed) return false;
+          if (!todo.dueDate) return false;
+          return new Date(todo.dueDate) > today;
+        });
+      case 'all':
       default:
         return todos;
     }
   }, [todos]);
 
-  const todoStats = useCallback(() => ({
-    total: todos.length,
-    active: todos.filter(t => !t.completed).length,
-    completed: todos.filter(t => t.completed).length,
-  }), [todos]);
+  const todoStats = useCallback(() => {
+    const today = new Date();
+    const todayStr = today.toISOString().split('T')[0];
+    
+    const todayTodos = todos.filter(todo => {
+      if (todo.completed) return false;
+      if (!todo.dueDate) return true;
+      return todo.dueDate === todayStr;
+    });
+    
+    const upcomingTodos = todos.filter(todo => {
+      if (todo.completed) return false;
+      if (!todo.dueDate) return false;
+      return new Date(todo.dueDate) > today;
+    });
+
+    return {
+      total: todos.length,
+      active: todos.filter(t => !t.completed).length,
+      completed: todos.filter(t => t.completed).length,
+      today: todayTodos.length,
+      upcoming: upcomingTodos.length,
+    };
+  }, [todos]);
 
   return {
     todos,

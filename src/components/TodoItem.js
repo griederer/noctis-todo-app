@@ -1,7 +1,6 @@
 import React from 'react';
-import '../styles/TodoItem.css';
 
-const TodoItem = React.memo(({ todo, onToggleComplete, onDelete, onEdit, index }) => {
+const TodoItem = React.memo(({ todo, onToggleComplete, onDelete, onEdit, onSelect, isSelected, index }) => {
   const formatDueDateTime = () => {
     if (!todo.dueDate) return null;
     
@@ -37,52 +36,46 @@ const TodoItem = React.memo(({ todo, onToggleComplete, onDelete, onEdit, index }
     return dueDateTime < new Date();
   };
 
+  const handleClick = (e) => {
+    // Don't select if clicking on checkbox or action buttons
+    if (e.target.closest('.todo-checkbox') || e.target.closest('.todo-actions')) {
+      return;
+    }
+    onSelect && onSelect(todo);
+  };
+
   return (
-    <li 
-      className={`todo-item ${todo.completed ? 'completed' : ''} ${isOverdue() ? 'overdue' : ''} slide-in-left`}
+    <div 
+      className={`todo-item ${todo.completed ? 'completed' : ''} ${isSelected ? 'selected' : ''} animate-fade-in`}
       style={{ animationDelay: `${index * 0.05}s` }}
+      onClick={handleClick}
     >
-      <div className="todo-item-header">
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--spacing-md)' }}>
-          <button
-            className={`todo-item-checkbox ${todo.completed ? 'checked' : ''}`}
-            onClick={() => onToggleComplete(todo.id, !todo.completed)}
-            aria-label={todo.completed ? 'Mark as incomplete' : 'Mark as complete'}
-          />
+      <button
+        className={`todo-checkbox ${todo.completed ? 'checked' : ''}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          onToggleComplete(todo.id, !todo.completed);
+        }}
+        aria-label={todo.completed ? 'Mark as incomplete' : 'Mark as complete'}
+      />
 
-          <div className="todo-item-content">
-            <h4 className="todo-item-title">{todo.title}</h4>
-            <div className="todo-item-meta">
-              {formatDueDateTime() && (
-                <span className={`todo-item-date ${isOverdue() ? 'overdue' : ''}`}>
-                  {formatDueDateTime()}
-                </span>
-              )}
-              <span className="todo-item-priority">
-                {todo.priority || 'medium'} priority
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div className="todo-item-actions">
-          <button
-            className="todo-action-btn edit"
-            onClick={() => onEdit && onEdit(todo.id, { title: prompt('Edit task:', todo.title) || todo.title })}
-            aria-label="Edit task"
-          >
-            ✎
-          </button>
-          <button
-            className="todo-action-btn delete"
-            onClick={() => onDelete(todo.id)}
-            aria-label="Delete task"
-          >
-            ✕
-          </button>
+      <div className="todo-content">
+        <div className="todo-title">{todo.title}</div>
+        <div className="todo-meta">
+          {todo.project && <span>{todo.project}</span>}
+          {formatDueDateTime() && (
+            <span className={isOverdue() ? 'text-danger-red' : ''}>
+              {formatDueDateTime()}
+            </span>
+          )}
+          {todo.priority && todo.priority !== 'medium' && (
+            <span className={`priority-${todo.priority}`}>
+              {todo.priority} priority
+            </span>
+          )}
         </div>
       </div>
-    </li>
+    </div>
   );
 });
 
