@@ -1,0 +1,326 @@
+/* ===========================
+   Vintage Scientific Animations
+   Subtle motion effects inspired by scientific diagrams
+   =========================== */
+
+/* ===========================
+   Floating Scientific Elements
+   =========================== */
+@keyframes floatDiagram {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.03;
+    }
+    25% {
+        transform: translateY(-10px) rotate(0.5deg);
+        opacity: 0.05;
+    }
+    50% {
+        transform: translateY(-5px) rotate(-0.5deg);
+        opacity: 0.04;
+    }
+    75% {
+        transform: translateY(-15px) rotate(0.3deg);
+        opacity: 0.05;
+    }
+}
+
+@keyframes rotateDiagram {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulseDiagram {
+    0%, 100% {
+        opacity: 0.02;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.06;
+        transform: scale(1.02);
+    }
+}
+
+/* Enhanced Scientific Background */
+.scientific-bg::before {
+    animation: floatDiagram 20s ease-in-out infinite;
+}
+
+.scientific-bg::after {
+    animation: floatDiagram 25s ease-in-out infinite reverse;
+}
+
+/* ===========================
+   Additional Floating Elements
+   =========================== */
+.scientific-bg {
+    overflow: hidden;
+}
+
+.scientific-bg::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    width: 200px;
+    height: 200px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg stroke='%23c5c0b5' stroke-width='0.5' fill='none'%3E%3Ccircle cx='100' cy='100' r='90'/%3E%3Ccircle cx='100' cy='100' r='70'/%3E%3Ccircle cx='100' cy='100' r='50'/%3E%3Cline x1='10' y1='100' x2='190' y2='100'/%3E%3Cline x1='100' y1='10' x2='100' y2='190'/%3E%3Cline x1='29' y1='29' x2='171' y2='171'/%3E%3Cline x1='171' y1='29' x2='29' y2='171'/%3E%3C/g%3E%3C/svg%3E") no-repeat;
+    background-size: contain;
+    animation: floatDiagram 20s ease-in-out infinite;
+}
+
+.scientific-bg::after {
+    content: '';
+    position: absolute;
+    bottom: 15%;
+    right: 8%;
+    width: 150px;
+    height: 150px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 150'%3E%3Cg stroke='%23c5c0b5' stroke-width='0.3' fill='none'%3E%3Cpolygon points='75,5 145,135 5,135'/%3E%3Cpolygon points='75,25 125,115 25,115'/%3E%3Cpolygon points='75,45 105,95 45,95'/%3E%3C/g%3E%3C/svg%3E") no-repeat;
+    background-size: contain;
+    animation: floatDiagram 25s ease-in-out infinite reverse;
+}
+
+/* Additional decorative elements */
+.app-container::after {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 400px;
+    transform: translate(-50%, -50%);
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cg stroke='%23c5c0b5' stroke-width='0.2' fill='none'%3E%3Ccircle cx='200' cy='200' r='180'/%3E%3Ccircle cx='200' cy='200' r='140'/%3E%3Ccircle cx='200' cy='200' r='100'/%3E%3Ccircle cx='200' cy='200' r='60'/%3E%3Cline x1='20' y1='200' x2='380' y2='200'/%3E%3Cline x1='200' y1='20' x2='200' y2='380'/%3E%3C/g%3E%3C/svg%3E") no-repeat center;
+    background-size: contain;
+    opacity: 0.01;
+    pointer-events: none;
+    z-index: 1;
+    animation: rotateDiagram 60s linear infinite;
+}
+
+/* ===========================
+   Scientific Card Hover Effects
+   =========================== */
+.scientific-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.scientific-card::before {
+    transition: opacity var(--transition-medium);
+}
+
+.scientific-card:hover::before {
+    opacity: 0.15;
+}
+
+/* ===========================
+   Form Input Focus Effects
+   =========================== */
+.todo-input:focus,
+.todo-textarea:focus,
+.todo-select:focus,
+.todo-date-input:focus,
+.todo-time-input:focus {
+    transform: translateY(-1px);
+    transition: all var(--transition-fast);
+}
+
+/* ===========================
+   Button Interaction Effects
+   =========================== */
+.todo-btn-primary {
+    position: relative;
+    overflow: hidden;
+}
+
+.todo-btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.todo-btn-primary:hover::before {
+    left: 100%;
+}
+
+/* ===========================
+   Todo Item Animations
+   =========================== */
+.todo-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.todo-item::before {
+    transition: all var(--transition-medium);
+}
+
+.todo-item:hover::before {
+    opacity: 0.12;
+    transform: scale(1.01);
+}
+
+.todo-item-checkbox {
+    transition: all var(--transition-fast);
+}
+
+.todo-item-checkbox:hover {
+    transform: scale(1.05);
+}
+
+.todo-item-checkbox.checked {
+    animation: checkboxSuccess 0.3s ease-out;
+}
+
+@keyframes checkboxSuccess {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* ===========================
+   Filter Bar Animations
+   =========================== */
+.todo-filter-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.todo-filter-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: var(--accent-gold);
+    transition: width var(--transition-fast);
+    z-index: -1;
+}
+
+.todo-filter-btn:hover::before {
+    width: 100%;
+}
+
+.todo-filter-btn:hover {
+    color: var(--bg-primary);
+}
+
+.todo-filter-btn.active::before {
+    width: 100%;
+}
+
+/* ===========================
+   Subtle Grid Pattern Animation
+   =========================== */
+@keyframes gridShift {
+    0%, 100% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 20px 20px;
+    }
+}
+
+body::after {
+    animation: gridShift 30s ease-in-out infinite;
+}
+
+/* ===========================
+   Loading States
+   =========================== */
+.fade-in {
+    animation: fadeIn var(--transition-slow) ease-out;
+}
+
+.slide-in-left {
+    animation: slideInLeft var(--transition-medium) ease-out;
+}
+
+/* Stagger animations for todo items */
+.todo-item:nth-child(1) { animation-delay: 0.1s; }
+.todo-item:nth-child(2) { animation-delay: 0.15s; }
+.todo-item:nth-child(3) { animation-delay: 0.2s; }
+.todo-item:nth-child(4) { animation-delay: 0.25s; }
+.todo-item:nth-child(5) { animation-delay: 0.3s; }
+
+/* ===========================
+   Scientific Formula Decorations
+   =========================== */
+.todo-section::before {
+    content: 'σ = √(Σ(x-μ)²/N)';
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-family: var(--font-technical);
+    font-size: 0.75rem;
+    color: var(--text-faded);
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.todo-section::after {
+    content: 'f(x) = ax² + bx + c';
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    font-family: var(--font-technical);
+    font-size: 0.75rem;
+    color: var(--text-faded);
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ===========================
+   Responsive Animation Adjustments
+   =========================== */
+@media (max-width: 768px) {
+    .scientific-bg::before,
+    .scientific-bg::after {
+        animation-duration: 30s;
+    }
+    
+    .app-container::after {
+        width: 300px;
+        height: 300px;
+        animation-duration: 90s;
+    }
+    
+    .todo-section::before,
+    .todo-section::after {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scientific-bg::before,
+    .scientific-bg::after,
+    .app-container::after,
+    body::after {
+        animation: none;
+    }
+    
+    .todo-item,
+    .fade-in,
+    .slide-in-left {
+        animation: none;
+    }
+}

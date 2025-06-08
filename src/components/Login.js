@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { signInWithGoogle } from '../firebase/auth';
-import HelixAnimation from './HelixAnimation';
-import '../styles/Login.css';
+import '../styles/ScientificLogin.css';
 
 function Login() {
   const [loading, setLoading] = useState(false);
@@ -23,17 +22,24 @@ function Login() {
 
   return (
     <div className="login-page">
-      <HelixAnimation />
+      {/* Scientific Measurement Lines */}
+      <div className="measurement-lines">
+        <div className="measure-line h1"></div>
+        <div className="measure-line v1"></div>
+        <div className="measure-line h2"></div>
+        <div className="measure-line v2"></div>
+      </div>
+      
       <div className="login-container">
         <div className="login-card">
           <div className="login-header">
-            <h1 className="login-title">Noctis To Do</h1>
-            <p className="login-subtitle">Find balance in your tasks</p>
+            <h1 className="login-title">Noctis Lab</h1>
+            <p className="login-subtitle">Personal Productivity Research Platform</p>
           </div>
           
           <div className="login-content">
             <p className="login-description">
-              Sign in to sync your tasks across all devices and never lose track of what matters.
+              Access your personal productivity laboratory. All experimental data is synchronized across devices for continuous analysis.
             </p>
             
             {error && (
@@ -51,13 +57,13 @@ function Login() {
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
               </svg>
-              {loading ? 'Signing in...' : 'Continue with Google'}
+              {loading ? 'Authenticating...' : 'Initialize Session'}
             </button>
           </div>
           
           <div className="login-footer">
             <p className="login-privacy">
-              Your data is secure and private. We only store your tasks.
+              All experimental data encrypted and secured. Research data remains private and controlled by subject.
             </p>
           </div>
         </div>

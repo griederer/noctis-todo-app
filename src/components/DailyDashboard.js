@@ -10,7 +10,7 @@ import {
   getTodayJournalEntry,
   saveTodayJournalEntry
 } from '../firebase/dailyData';
-import '../styles/DailyDashboard.css';
+import '../styles/ScientificManuscript.css';
 
 const DAILY_HABITS = [
   { id: 'water', icon: '💧', text: 'Drink 8 glasses of water', short: 'Water' },
@@ -45,17 +45,26 @@ function DailyDashboard() {
     
     try {
       setLoading(true);
+      console.log('Loading day data for:', dateString);
+      
       const [habitsData, todosData, journalData] = await Promise.all([
         getSimpleDailyHabits(user.uid, dateString),
         getDailyTodos(user.uid, dateString),
         getTodayJournalEntry(user.uid, dateString)
       ]);
       
+      console.log('Day data loaded successfully:', { habitsData, todosData, journalData });
+      
       setHabits(habitsData || {});
       setTodos(todosData || []);
       setJournalEntry(journalData || '');
     } catch (error) {
       console.error('Error loading day data:', error);
+      console.error('Error details:', error.message, error.stack);
+      // Don't throw the error, just log it and continue with empty data
+      setHabits({});
+      setTodos([]);
+      setJournalEntry('');
     } finally {
       setLoading(false);
     }
@@ -154,12 +163,35 @@ function DailyDashboard() {
     }).format(date);
   };
 
+  // Don't render if user is not authenticated
+  if (!user) {
+    return (
+      <div className="daily-dashboard">
+        <div className="loading-container">
+          <div className="loading-dots">
+            <div className="loading-dot"></div>
+            <div className="loading-dot"></div>
+            <div className="loading-dot"></div>
+          </div>
+          <div className="loading-text">
+            Authentication required for experiment access
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (loading) {
     return (
-      <div className="daily-dashboard loading">
-        <div className="loading-apparatus">
-          <div className="apparatus-frame">
-            <div className="loading-nodes"></div>
+      <div className="daily-dashboard">
+        <div className="loading-container">
+          <div className="loading-dots">
+            <div className="loading-dot"></div>
+            <div className="loading-dot"></div>
+            <div className="loading-dot"></div>
+          </div>
+          <div className="loading-text">
+            Initializing daily analysis apparatus...
           </div>
         </div>
       </div>
@@ -167,229 +199,165 @@ function DailyDashboard() {
   }
 
   return (
-    <div className="daily-dashboard">
-      {/* Scientific Grid Background */}
-      <div className="scientific-grid"></div>
+    <div className="daily-dashboard" style={{ '--percentage': overallScore }}>
+      {/* Technical Annotations */}
+      <div className="technical-annotations">
+        <div className="annotation top-left">
+          Experiment: Daily Productivity Analysis<br/>
+          Date: {new Date().toISOString().split('T')[0]}<br/>
+          Subject: Personal Optimization
+        </div>
+        <div className="annotation top-right">
+          δ/δt = progress_rate<br/>
+          Σ(habits + tasks + journal) = total_score<br/>
+          var(daily_performance)
+        </div>
+        <div className="annotation bottom-left">
+          Coordinates: Daily View<br/>
+          Scale: 1:1 (real-time)<br/>
+          Units: percentage (%)
+        </div>
+        <div className="annotation bottom-right">
+          Fig. {formatDate(currentDate)}<br/>
+          Observer: {user?.email}<br/>
+          Status: {isToday ? 'ACTIVE' : 'HISTORICAL'}
+        </div>
+      </div>
+
+      {/* Scientific Measurement Lines */}
+      <div className="measurement-lines">
+        <div className="measure-line horizontal" style={{ top: '15%', left: '5%' }}></div>
+        <div className="measure-line vertical" style={{ top: '10%', left: '10%' }}></div>
+        <div className="measure-line diagonal" style={{ top: '20%', right: '8%', transform: 'rotate(45deg)' }}></div>
+        <div className="measure-line horizontal" style={{ bottom: '25%', right: '12%' }}></div>
+        <div className="measure-line vertical" style={{ bottom: '15%', left: '8%' }}></div>
+      </div>
       
-      {/* Laboratory Frame */}
-      <div className="lab-frame">
-        
-        {/* Date Navigation Header */}
-        <div className="date-navigation">
-          <button 
-            className="nav-arrow left" 
-            onClick={() => navigateDay(-1)}
-            aria-label="Previous day"
-          >
-            ←
-          </button>
-          <div className="date-display">
-            <div className="date-label">
-              {isToday ? 'Today' : 'Day View'}
+      <div className="dashboard-container">
+        <div className="dashboard-header">
+          <div className="date-navigation">
+            <button 
+              className="nav-arrow left" 
+              onClick={() => navigateDay(-1)}
+              aria-label="Previous day"
+            >
+              ←
+            </button>
+            <div className="date-display">
+              <div className="date-label">
+                {isToday ? 'Current Observation' : 'Historical Data'}
+              </div>
+              <div className="date-full">
+                {formatDate(currentDate)}
+              </div>
             </div>
-            <div className="date-full">
-              {formatDate(currentDate)}
-            </div>
+            <button 
+              className="nav-arrow right" 
+              onClick={() => navigateDay(1)}
+              aria-label="Next day"
+            >
+              →
+            </button>
           </div>
-          <button 
-            className="nav-arrow right" 
-            onClick={() => navigateDay(1)}
-            aria-label="Next day"
-          >
-            →
-          </button>
-        </div>
-
-        {/* Central Control Panel */}
-        <div className="control-panel">
           
-          {/* Daily Score Observatory */}
           <div className="score-observatory">
-            <div className="observatory-frame">
-              <div className="score-lens" style={{ '--score': overallScore }}>
-                <div className="score-reading">
-                  <span className="score-value">{overallScore}%</span>
-                  <span className="score-unit">daily</span>
+            <div className="score-circle-container">
+              <div className="score-circle" style={{ '--percentage': overallScore }}>
+                <div className="score-display">
+                  <div className="score-number">{overallScore}</div>
+                  <div className="score-label">Efficiency</div>
                 </div>
               </div>
-              <div className="observatory-label">Overall Progress</div>
             </div>
-            
-            {/* Connection Lines to Sections */}
-            <svg className="connection-lines" viewBox="0 0 800 600">
-              <defs>
-                <marker id="arrowhead" markerWidth="10" markerHeight="7" 
-                        refX="10" refY="3.5" orient="auto">
-                  <polygon points="0 0, 10 3.5, 0 7" fill="rgba(255,255,255,0.3)" />
-                </marker>
-              </defs>
-              
-              {/* Lines connecting to each section */}
-              <line x1="400" y1="150" x2="200" y2="300" 
-                    stroke="rgba(255,255,255,0.2)" strokeWidth="1" 
-                    markerEnd="url(#arrowhead)" />
-              <line x1="400" y1="150" x2="400" y2="300" 
-                    stroke="rgba(255,255,255,0.2)" strokeWidth="1" 
-                    markerEnd="url(#arrowhead)" />
-              <line x1="400" y1="150" x2="600" y2="300" 
-                    stroke="rgba(255,255,255,0.2)" strokeWidth="1" 
-                    markerEnd="url(#arrowhead)" />
-              
-              {/* Scientific annotations */}
-              <text x="100" y="20" fill="rgba(255,255,255,0.4)" fontSize="12" fontFamily="monospace">
-                ∑(habits + tasks + reflection) = daily_progress
-              </text>
-              <text x="500" y="580" fill="rgba(255,255,255,0.4)" fontSize="12" fontFamily="monospace">
-                δ/δt = continuous_improvement
-              </text>
-            </svg>
           </div>
+        </div>
 
-          {/* Three Main Apparatus Sections */}
-          <div className="apparatus-sections">
-            
-            {/* Today's Focus Apparatus */}
-            <div className="apparatus-section focus-apparatus">
-              <div className="apparatus-housing">
-                <div className="section-label">
-                  <div className="label-text">Today's Focus</div>
-                  <div className="label-metric">{completedTodos}/{todos.length}</div>
-                  <div className="progress-indicator" style={{ '--progress': todosScore }}></div>
-                </div>
-                
-                <div className="apparatus-content">
-                  <div className="todo-input-chamber">
-                    <input
-                      type="text"
-                      value={newTodo}
-                      onChange={(e) => setNewTodo(e.target.value)}
-                      onKeyPress={(e) => e.key === 'Enter' && addTodo()}
-                      placeholder="Add focus item for today..."
-                      className="focus-input"
-                    />
-                    <button onClick={addTodo} className="add-focus-btn">+</button>
-                  </div>
-                  
-                  <div className="focus-items">
-                    {todos.map((todo, index) => (
-                      <div key={todo.id} className={`focus-item ${todo.completed ? 'completed' : ''}`}>
-                        <div className="item-node" onClick={() => toggleTodo(todo.id)}>
-                          <div className="node-indicator">
-                            {todo.completed ? '●' : '○'}
-                          </div>
-                        </div>
-                        <div className="item-text">{todo.text}</div>
-                        <div className="item-index">#{index + 1}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+        <div className="dashboard-grid">
+          <div className="dashboard-module focus-module" data-module-id="A.1">
+            <div className="module-header">
+              <h2 className="module-title">Task Analysis</h2>
+              <div className="module-metric">{completedTodos}/{todos.length}</div>
             </div>
-
-            {/* Habits Measurement Device */}
-            <div className="apparatus-section habits-apparatus">
-              <div className="apparatus-housing">
-                <div className="section-label">
-                  <div className="label-text">Daily Habits</div>
-                  <div className="label-metric">{completedHabits}/{DAILY_HABITS.length}</div>
-                  <div className="progress-indicator" style={{ '--progress': habitsScore }}></div>
-                </div>
-                
-                <div className="apparatus-content">
-                  <div className="habits-grid">
-                    {DAILY_HABITS.map((habit, index) => (
-                      <div 
-                        key={habit.id} 
-                        className={`habit-node ${habits[habit.id] ? 'active' : ''}`}
-                        onClick={() => toggleHabit(habit.id)}
-                        title={habit.text}
-                      >
-                        <div className="node-core">
-                          <div className="node-icon">{habit.icon}</div>
-                          <div className="node-state">
-                            {habits[habit.id] ? '●' : '○'}
-                          </div>
-                        </div>
-                        <div className="node-label">{habit.short}</div>
-                        <div className="node-index">{index + 1}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+            <div className="module-content">
+              <div className="focus-input-container">
+                <input
+                  type="text"
+                  value={newTodo}
+                  onChange={(e) => setNewTodo(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && addTodo()}
+                  placeholder="Add new task to analysis..."
+                  className="focus-input"
+                />
+                <button onClick={addTodo} className="add-focus-btn">+</button>
               </div>
-            </div>
-
-            {/* Journal Recording Apparatus */}
-            <div className="apparatus-section journal-apparatus">
-              <div className="apparatus-housing">
-                <div className="section-label">
-                  <div className="label-text">Daily Reflection</div>
-                  <div className="label-metric">{journalEntry.length} chars</div>
-                  <div className="progress-indicator" style={{ '--progress': journalScore }}></div>
-                </div>
-                
-                <div className="apparatus-content">
-                  <div className="journal-chamber">
-                    <textarea
-                      value={journalEntry}
-                      onChange={(e) => setJournalEntry(e.target.value)}
-                      onBlur={saveJournal}
-                      placeholder="Record today's observations, thoughts, and reflections..."
-                      className="journal-input"
-                      rows="6"
-                    />
-                    <div className="journal-metadata">
-                      <div className="metadata-item">
-                        Date: {dateString}
-                      </div>
-                      <div className="metadata-item">
-                        Auto-saved
-                      </div>
+              
+              <div className="focus-items">
+                {todos.map((todo, index) => (
+                  <div key={todo.id} className={`focus-item ${todo.completed ? 'completed' : ''}`} onClick={() => toggleTodo(todo.id)}>
+                    <div className="focus-checkbox">
+                      {todo.completed ? '✓' : (index + 1).toString().padStart(2, '0')}
                     </div>
+                    <div className="focus-text">{todo.text}</div>
                   </div>
-                </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="dashboard-module habits-module" data-module-id="B.1">
+            <div className="module-header">
+              <h2 className="module-title">Behavioral Matrix</h2>
+              <div className="module-metric">{completedHabits}/{DAILY_HABITS.length}</div>
+            </div>
+            <div className="module-content">
+              <div className="habits-grid">
+                {DAILY_HABITS.map((habit, index) => (
+                  <div 
+                    key={habit.id} 
+                    className={`habit-dot ${habits[habit.id] ? 'completed' : ''}`}
+                    onClick={() => toggleHabit(habit.id)}
+                    title={`${habit.text} [${(index + 1).toString().padStart(2, '0')}]`}
+                  >
+                    <div className="habit-icon">{habit.icon}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="dashboard-module journal-module" data-module-id="C.1">
+            <div className="module-header">
+              <h2 className="module-title">Daily Observations</h2>
+              <div className="module-metric">{journalEntry.length > 0 ? Math.min(journalEntry.length, 999) : '000'}</div>
+            </div>
+            <div className="module-content">
+              <textarea
+                value={journalEntry}
+                onChange={(e) => setJournalEntry(e.target.value)}
+                onBlur={saveJournal}
+                placeholder="Record experimental observations, hypotheses, and conclusions..."
+                className="journal-textarea"
+              />
+              <div className="journal-metadata">
+                <div>Timestamp: {dateString}</div>
+                <div>Status: Auto-logged</div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Scientific Measurements Display */}
-        <div className="measurements-panel">
-          <div className="measurement-reading">
-            <span className="reading-label">H</span>
-            <span className="reading-value">{habitsScore}%</span>
-            <span className="reading-unit">habits</span>
+        <div className="measurements-bar">
+          <div className="measurement-item">
+            <div className="measurement-label">Behavioral</div>
+            <div className="measurement-value measurement-habits">{habitsScore}%</div>
           </div>
-          <div className="measurement-reading">
-            <span className="reading-label">T</span>
-            <span className="reading-value">{todosScore}%</span>
-            <span className="reading-unit">tasks</span>
+          <div className="measurement-item">
+            <div className="measurement-label">Productive</div>
+            <div className="measurement-value measurement-tasks">{todosScore}%</div>
           </div>
-          <div className="measurement-reading">
-            <span className="reading-label">J</span>
-            <span className="reading-value">{journalScore}%</span>
-            <span className="reading-unit">journal</span>
-          </div>
-        </div>
-
-        {/* Frame Corners and Scientific Details */}
-        <div className="frame-corners">
-          <div className="corner top-left">
-            <div className="corner-detail"></div>
-            <span className="corner-label">α</span>
-          </div>
-          <div className="corner top-right">
-            <div className="corner-detail"></div>
-            <span className="corner-label">β</span>
-          </div>
-          <div className="corner bottom-left">
-            <div className="corner-detail"></div>
-            <span className="corner-label">γ</span>
-          </div>
-          <div className="corner bottom-right">
-            <div className="corner-detail"></div>
-            <span className="corner-label">δ</span>
+          <div className="measurement-item">
+            <div className="measurement-label">Reflective</div>
+            <div className="measurement-value measurement-journal">{journalScore}%</div>
           </div>
         </div>
       </div>

@@ -55,53 +55,81 @@ function TodoForm({ onAddTodo }) {
 
   return (
     <form onSubmit={handleSubmit} className="todo-form">
-      <div className="form-input-container">
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Add a new task..."
-          className="todo-input"
-          autoFocus
-        />
-        
-        <div className="form-row">
-          <select
-            value={priority}
-            onChange={(e) => setPriority(e.target.value)}
-            className="priority-select"
-          >
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-          
-          <input
-            type="date"
-            value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
-            className="date-input"
-            min={new Date().toISOString().split('T')[0]}
-            placeholder="Due date"
-          />
-          
-          <select
-            value={dueTime}
-            onChange={(e) => setDueTime(e.target.value)}
-            className="time-select"
-            disabled={!dueDate}
-          >
-            <option value="">Select time</option>
-            {timeOptions.map(time => (
-              <option key={time.value} value={time.value}>
-                {time.display}
-              </option>
-            ))}
-          </select>
+      <div className="todo-form-header">
+        <h3 className="todo-form-title">New Task Entry</h3>
+        <span className="todo-form-legend">Document ID: {Date.now().toString(36)}</span>
+      </div>
+      
+      <div className="todo-form-grid">
+        <div className="todo-form-full">
+          <div className="todo-input-group">
+            <label className="todo-input-label">Task Description</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Enter detailed task description..."
+              className="todo-input"
+              autoFocus
+            />
+          </div>
         </div>
         
-        <button type="submit" className="add-button">
-          Add Task
+        <div className="todo-input-group">
+          <label className="todo-input-label">Priority Classification</label>
+          <div className="todo-priority-group">
+            {['low', 'medium', 'high'].map(priorityLevel => (
+              <button
+                key={priorityLevel}
+                type="button"
+                className={`todo-priority-option ${priority === priorityLevel ? 'selected' : ''}`}
+                onClick={() => setPriority(priorityLevel)}
+              >
+                {priorityLevel.charAt(0).toUpperCase() + priorityLevel.slice(1)}
+              </button>
+            ))}
+          </div>
+        </div>
+        
+        <div className="todo-input-group">
+          <label className="todo-input-label">Due Date & Time</label>
+          <div className="todo-datetime-group">
+            <input
+              type="date"
+              value={dueDate}
+              onChange={(e) => setDueDate(e.target.value)}
+              className="todo-date-input"
+              min={new Date().toISOString().split('T')[0]}
+            />
+            
+            <select
+              value={dueTime}
+              onChange={(e) => setDueTime(e.target.value)}
+              className="todo-time-input"
+              disabled={!dueDate}
+            >
+              <option value="">Time</option>
+              {timeOptions.map(time => (
+                <option key={time.value} value={time.value}>
+                  {time.display}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div className="todo-form-actions">
+        <button type="button" className="todo-btn-secondary" onClick={() => {
+          setTitle('');
+          setPriority('medium');
+          setDueDate('');
+          setDueTime('');
+        }}>
+          Clear
+        </button>
+        <button type="submit" className="todo-btn-primary">
+          Add Task Entry
         </button>
       </div>
     </form>

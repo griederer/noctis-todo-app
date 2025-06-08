@@ -1,0 +1,243 @@
+/* Scientific Manuscript App Styles */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Root CSS Variables */
+:root {
+  --color-bg-primary: #0a0a0a;
+  --color-bg-secondary: #1a1a1a;
+  --color-paper: #f8f6f0;
+  --color-ink: #2a2a2a;
+  --color-accent: #8B7355;
+  --color-highlight: #D4B896;
+  --color-faded: #666;
+  --color-grid: #333;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-serif: 'Crimson Text', serif;
+}
+
+/* Main App Container */
+.app {
+  min-height: 100vh;
+  background: var(--color-bg-primary);
+  color: var(--color-paper);
+  font-family: var(--font-serif);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Global grainy scientific paper texture */
+.app::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 25% 25%, #1a1a1a 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, #141414 1px, transparent 1px),
+    radial-gradient(circle at 50% 10%, #111 0.5px, transparent 0.5px),
+    radial-gradient(circle at 20% 80%, #151515 0.5px, transparent 0.5px),
+    linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.01) 50%, transparent 60%),
+    linear-gradient(-45deg, transparent 40%, rgba(255,255,255,0.005) 50%, transparent 60%);
+  background-size: 
+    20px 20px,
+    30px 30px,
+    10px 10px,
+    15px 15px,
+    50px 50px,
+    50px 50px;
+  opacity: 0.6;
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Global scientific grid */
+.app::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px),
+    linear-gradient(0deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.1;
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Main Content Area */
+.main-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Global Typography */
+body {
+  font-family: var(--font-serif);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-paper);
+  font-family: var(--font-mono);
+}
+
+p {
+  line-height: 1.6;
+}
+
+/* Button Reset */
+button {
+  border: none;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Input Reset */
+input, textarea {
+  border: none;
+  background: none;
+  font-family: inherit;
+  outline: none;
+}
+
+/* Global Scientific Annotations */
+.app {
+  position: relative;
+}
+
+/* Technical corner markings */
+.app .technical-corner {
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.app .technical-corner.top-left {
+  top: 20px;
+  left: 20px;
+  width: 30px;
+  height: 30px;
+  border-top: 2px solid var(--color-accent);
+  border-left: 2px solid var(--color-accent);
+  opacity: 0.3;
+}
+
+.app .technical-corner.top-right {
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  border-top: 2px solid var(--color-accent);
+  border-right: 2px solid var(--color-accent);
+  opacity: 0.3;
+}
+
+.app .technical-corner.bottom-left {
+  bottom: 20px;
+  left: 20px;
+  width: 30px;
+  height: 30px;
+  border-bottom: 2px solid var(--color-accent);
+  border-left: 2px solid var(--color-accent);
+  opacity: 0.3;
+}
+
+.app .technical-corner.bottom-right {
+  bottom: 20px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  border-bottom: 2px solid var(--color-accent);
+  border-right: 2px solid var(--color-accent);
+  opacity: 0.3;
+}
+
+/* Loading State Styling */
+.app.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Scientific Loading Animation */
+.app.loading::before {
+  content: 'Initializing Scientific Analysis Framework...';
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--color-accent);
+  z-index: 10;
+  letter-spacing: 0.05em;
+}
+
+/* Utility Classes */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Scientific measurement units */
+.measurement-unit {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-faded);
+  font-weight: 300;
+}
+
+.coordinate-marker {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-accent);
+  opacity: 0.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app {
+    font-size: 14px;
+  }
+  
+  .app .technical-corner {
+    display: none;
+  }
+}

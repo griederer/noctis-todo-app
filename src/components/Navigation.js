@@ -1,34 +1,31 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import '../styles/Navigation.css';
+import '../styles/ScientificNavigation.css';
 
 function Navigation() {
   return (
     <nav className="main-navigation">
-      {/* Scientific measurement marks and coordinates */}
-      <div className="scientific-notation coordinates" style={{ position: 'absolute', top: '5px', left: '10px', fontSize: '10px' }}>0,0</div>
-      <div className="blueprint-element dimension-line" style={{ position: 'absolute', top: '5px', right: '50px' }}></div>
+      <div className="nav-corner-accent left"></div>
       
       <NavLink to="/today" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-        <span className="nav-icon">🌅</span>
-        <span className="nav-text">Today</span>
+        <span className="nav-icon">🔬</span>
+        <span className="nav-text">Analysis</span>
       </NavLink>
       <NavLink to="/todo" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
         <span className="nav-icon">✓</span>
-        <span className="nav-text">Todo</span>
+        <span className="nav-text">Tasks</span>
       </NavLink>
       <NavLink to="/journal" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
         <span className="nav-icon">📝</span>
-        <span className="nav-text">Journal</span>
+        <span className="nav-text">Notes</span>
       </NavLink>
       <NavLink to="/habits" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-        <span className="nav-icon">📊</span>
-        <span className="nav-text">Habits</span>
+        <span className="nav-icon">🧪</span>
+        <span className="nav-text">Matrix</span>
       </NavLink>
       
-      <div className="crosshair" style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)' }}>
-        <div className="circle"></div>
-      </div>
+      <div className="nav-corner-accent right"></div>
+      <div className="nav-annotations">v2.1.0 - productivity research interface</div>
     </nav>
   );
 }

@@ -5,19 +5,19 @@ import '../styles/TodoList.css';
 const TodoList = React.memo(({ todos, onToggleComplete, onDelete, onEdit }) => {
   if (todos.length === 0) {
     return (
-      <div className="empty-state">
-        <div className="empty-pattern">
-          <div className="empty-line"></div>
-          <div className="empty-line"></div>
-          <div className="empty-line"></div>
-        </div>
-        <p className="empty-text">No tasks yet. Add one to get started!</p>
+      <div className="todo-empty-state">
+        <div className="todo-empty-state-icon">📋</div>
+        <h3 className="todo-empty-state-title">No Task Entries Found</h3>
+        <p className="todo-empty-state-message">
+          Begin documenting your objectives using the form above.<br />
+          All entries will be catalogued and tracked systematically.
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="todo-list">
+    <ul className="todo-list">
       {todos.map((todo, index) => (
         <TodoItem
           key={todo.id}
@@ -28,7 +28,7 @@ const TodoList = React.memo(({ todos, onToggleComplete, onDelete, onEdit }) => {
           index={index}
         />
       ))}
-    </div>
+    </ul>
   );
 });
 

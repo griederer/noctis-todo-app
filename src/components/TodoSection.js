@@ -7,6 +7,7 @@ import ErrorNotification from './ErrorNotification';
 import LoadingSpinner from './LoadingSpinner';
 import { useTodos } from '../hooks/useTodos';
 import { useErrorHandler } from '../hooks/useErrorHandler';
+import '../styles/VintageScientificTodos.css';
 import '../styles/TodoSection.css';
 
 function TodoSection() {
@@ -68,27 +69,25 @@ function TodoSection() {
   const stats = todoStats();
 
   return (
-    <div className="todo-section">
-      {/* Scientific decorative elements */}
-      <div className="technical-decoration"></div>
-      <div className="formula-decoration">f(x) = ax² + bx + c</div>
-      <div className="formula-decoration">α = ∠ABC</div>
-      <div className="geometric-overlay circle-grid"></div>
-      
+    <div className="todo-section scientific-card fade-in">
       <ErrorNotification error={error} onClose={clearError} />
-      <div className="todo-container">
-        <h1 className="todo-title">
-          <span className="measurement-mark"></span>
-          Tasks
-        </h1>
-        <TodoForm onAddTodo={handleAddTodo} />
-        <FilterBar 
-          filter={filter} 
-          setFilter={setFilter} 
-          todoCount={stats.total}
-          activeCount={stats.active}
-          completedCount={stats.completed}
-        />
+      
+      <div className="todo-section-header">
+        <h1 className="todo-section-title">Tasks & Objectives</h1>
+        <p className="todo-section-subtitle">Scientific Task Management Protocol</p>
+      </div>
+      
+      <TodoForm onAddTodo={handleAddTodo} />
+      
+      <FilterBar 
+        filter={filter} 
+        setFilter={setFilter} 
+        todoCount={stats.total}
+        activeCount={stats.active}
+        completedCount={stats.completed}
+      />
+      
+      <div className="todo-list-container">
         <TodoList 
           todos={filteredTodos}
           onToggleComplete={handleToggleComplete}

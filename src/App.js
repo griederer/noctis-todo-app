@@ -6,14 +6,14 @@ import TodoSection from './components/TodoSection';
 import JournalSection from './components/JournalSection';
 import SimpleHabitsSection from './components/SimpleHabitsSection';
 import DailyDashboard from './components/DailyDashboard';
-import HelixAnimation from './components/HelixAnimation';
 import Login from './components/Login';
 import ErrorBoundary from './components/ErrorBoundary';
 import SectionErrorBoundary from './components/SectionErrorBoundary';
 import LoadingSpinner from './components/LoadingSpinner';
 import { useAuth } from './contexts/AuthContext';
-import './styles/App.css';
-import './styles/ScientificElements.css';
+import './styles/VintageScientific.css';
+import './styles/VintageScientificAnimations.css';
+import './styles/ScientificApp.css';
 
 function App() {
   const { loading, isAuthenticated } = useAuth();
@@ -21,8 +21,7 @@ function App() {
   // Show loading state
   if (loading) {
     return (
-      <div className="app dark-theme">
-        <HelixAnimation />
+      <div className="app loading">
         <LoadingSpinner size="large" message="Initializing app..." />
       </div>
     );
@@ -37,14 +36,16 @@ function App() {
   return (
     <ErrorBoundary>
       <Router>
-        <div className="app dark-theme">
-          {/* Scientific decorative elements */}
-          <div className="anatomical-watermark"></div>
-          <div className="manuscript-stain"></div>
-          <div className="manuscript-stain"></div>
-          <div className="manuscript-stain"></div>
-          <div className="math-notation" style={{ content: '"∑ⁿᵢ₌₁"' }}>∑ⁿᵢ₌₁</div>
-          <div className="math-notation" style={{ content: '"∫∞₀"' }}>∫∞₀</div>
+        <div className="app-container">
+          {/* Scientific Background Elements */}
+          <div className="scientific-bg"></div>
+          
+          <div className="app">
+            {/* Technical Corner Markings */}
+            <div className="technical-corner top-left"></div>
+            <div className="technical-corner top-right"></div>
+            <div className="technical-corner bottom-left"></div>
+            <div className="technical-corner bottom-right"></div>
           
           <ErrorBoundary>
             <Header />
@@ -89,6 +90,7 @@ function App() {
               } />
             </Routes>
           </main>
+          </div>
         </div>
       </Router>
     </ErrorBoundary>
