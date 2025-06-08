@@ -8,12 +8,18 @@ const AddTaskButton = ({ onAddTask }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (title.trim()) {
-      onAddTask({
+      const todoData = {
         title: title.trim(),
-        project: project.trim() || undefined,
         completed: false,
         createdAt: new Date().toISOString()
-      });
+      };
+      
+      // Only add project if it has a value (Firebase doesn't allow undefined)
+      if (project.trim()) {
+        todoData.project = project.trim();
+      }
+      
+      onAddTask(todoData);
       setTitle('');
       setProject('');
       setShowForm(false);

@@ -13,8 +13,8 @@ import LoadingSpinner from './LoadingSpinner';
 import ErrorNotification from './ErrorNotification';
 import Login from './Login';
 import ErrorBoundary from './ErrorBoundary';
-import JournalSection from './JournalSection';
-import SimpleHabitsSection from './SimpleHabitsSection';
+import ModernJournalSection from './ModernJournalSection';
+import ModernSimpleHabitsSection from './ModernSimpleHabitsSection';
 
 // Styles
 import '../styles/ModernClean.css';
@@ -290,7 +290,7 @@ const AppContent = () => {
                 <p className="main-subtitle">Track your daily habits</p>
               </div>
               <div className="main-body">
-                <SimpleHabitsSection />
+                <ModernSimpleHabitsSection />
               </div>
             </div>
           } 
@@ -299,12 +299,8 @@ const AppContent = () => {
           path="/journal" 
           element={
             <div className="main-content">
-              <div className="main-header">
-                <h1 className="main-title">Journal</h1>
-                <p className="main-subtitle">Write your thoughts and reflections</p>
-              </div>
-              <div className="main-body">
-                <JournalSection />
+              <div className="main-body" style={{ padding: 0 }}>
+                <ModernJournalSection />
               </div>
             </div>
           } 
