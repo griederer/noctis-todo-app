@@ -55,10 +55,12 @@ function SimpleHabitsSection() {
       [habitId]: !completedHabits[habitId]
     };
 
+    console.log('Toggling habit:', habitId, 'New state:', newCompletedHabits[habitId]);
     setCompletedHabits(newCompletedHabits);
 
     try {
       await saveSimpleDailyHabits(user.uid, todayString, newCompletedHabits);
+      console.log('Habit saved successfully');
     } catch (error) {
       console.error('Error saving habit:', error);
       // Revert on error
@@ -68,6 +70,8 @@ function SimpleHabitsSection() {
 
   const completedCount = Object.values(completedHabits).filter(Boolean).length;
   const score = Math.round((completedCount / DAILY_HABITS.length) * 100);
+  
+  console.log('Score calculation:', { completedHabits, completedCount, totalHabits: DAILY_HABITS.length, score });
 
   const getScoreColor = (percentage) => {
     if (percentage >= 80) return '#22c55e'; // Green
@@ -96,7 +100,10 @@ function SimpleHabitsSection() {
         <div className="header-content">
           <h1 className="habits-title">Daily Habits</h1>
           <div className="daily-score-card">
-            <div className="score-circle" style={{ '--score-color': getScoreColor(score) }}>
+            <div className="score-circle" style={{ 
+              '--score-color': getScoreColor(score),
+              '--percentage': score
+            }}>
               <div className="score-number">{score}%</div>
               <div className="score-label">Daily Score</div>
             </div>
