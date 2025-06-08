@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const TodoDetailView = ({ todo, isOpen, onClose, onUpdate }) => {
+const TodoDetailView = ({ todo, isOpen, onClose, onUpdate, onDelete }) => {
   const [notes, setNotes] = useState('');
   const [title, setTitle] = useState('');
 
@@ -160,7 +160,7 @@ const TodoDetailView = ({ todo, isOpen, onClose, onUpdate }) => {
           <button
             onClick={() => {
               if (window.confirm('Are you sure you want to delete this task?')) {
-                // Handle delete - this would need to be passed down as a prop
+                onDelete && onDelete(todo.id);
                 onClose();
               }
             }}

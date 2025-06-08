@@ -13,6 +13,8 @@ import LoadingSpinner from './LoadingSpinner';
 import ErrorNotification from './ErrorNotification';
 import Login from './Login';
 import ErrorBoundary from './ErrorBoundary';
+import JournalSection from './JournalSection';
+import SimpleHabitsSection from './SimpleHabitsSection';
 
 // Styles
 import '../styles/ModernClean.css';
@@ -279,8 +281,34 @@ const AppContent = () => {
             />
           } 
         />
-        <Route path="/habits" element={<Navigate to="/today" />} />
-        <Route path="/journal" element={<Navigate to="/today" />} />
+        <Route 
+          path="/habits" 
+          element={
+            <div className="main-content">
+              <div className="main-header">
+                <h1 className="main-title">Habits</h1>
+                <p className="main-subtitle">Track your daily habits</p>
+              </div>
+              <div className="main-body">
+                <SimpleHabitsSection />
+              </div>
+            </div>
+          } 
+        />
+        <Route 
+          path="/journal" 
+          element={
+            <div className="main-content">
+              <div className="main-header">
+                <h1 className="main-title">Journal</h1>
+                <p className="main-subtitle">Write your thoughts and reflections</p>
+              </div>
+              <div className="main-body">
+                <JournalSection />
+              </div>
+            </div>
+          } 
+        />
       </Routes>
       
       {/* Right Detail Panel */}
@@ -289,6 +317,7 @@ const AppContent = () => {
         isOpen={!!selectedTodo}
         onClose={handleCloseDetail}
         onUpdate={handleUpdateTodo}
+        onDelete={handleDeleteTodo}
       />
     </div>
   );

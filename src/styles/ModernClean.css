@@ -987,6 +987,26 @@ body::after {
     box-shadow: var(--shadow-lg);
 }
 
+/* Background overlay utilities */
+.bg-black {
+    background-color: black;
+}
+
+.bg-opacity-20 {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.bg-white {
+    background-color: white;
+}
+
+/* Media query utilities */
+@media (min-width: 768px) {
+    .md\:items-center {
+        align-items: center;
+    }
+}
+
 /* Focus utilities */
 .focus\:ring-2:focus {
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
