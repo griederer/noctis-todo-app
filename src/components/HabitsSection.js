@@ -135,25 +135,6 @@ function HabitsSection() {
       <div className="math-formula formula-2">streak × consistency = growth</div>
       <div className="math-formula formula-3">∂progress/∂time = habits</div>
       
-      {/* Debug info */}
-      <div style={{ position: 'fixed', top: '10px', right: '10px', background: 'rgba(0,0,0,0.9)', color: 'white', padding: '15px', fontSize: '12px', zIndex: 10000, maxWidth: '300px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)' }}>
-        <strong>Debug Panel</strong><br/>
-        showAddHabit: {showAddHabit.toString()}<br/>
-        User: {user ? `${user.email} (${user.uid.substring(0, 8)}...)` : 'Not logged in'}<br/>
-        Habits count: {userHabits.length}<br/>
-        Loading: {loading.toString()}<br/>
-        {userHabits.length > 0 && (
-          <>
-            <br/>
-            <strong>Current Habits:</strong><br/>
-            {userHabits.map(h => (
-              <div key={h.id} style={{ fontSize: '10px', marginTop: '2px' }}>
-                • {h.name} (ID: {h.habitId})
-              </div>
-            ))}
-          </>
-        )}
-      </div>
       
       {/* Header with Daily Score */}
       <div className="habits-header">

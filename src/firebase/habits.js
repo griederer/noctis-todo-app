@@ -144,6 +144,32 @@ export const logHabitCompletion = async (userId, habitId, date = new Date(), not
         createdAt: serverTimestamp()
       });
       
+      // Update the habit's streak
+      const habitQuery = query(
+        habitsCollection,
+        where('userId', '==', userId),
+        where('habitId', '==', habitId),
+        where('isActive', '==', true)
+      );
+      const habitSnapshot = await getDocs(habitQuery);
+      
+      if (!habitSnapshot.empty) {
+        const habitDoc = habitSnapshot.docs[0];
+        const habitData = habitDoc.data();
+        
+        // Calculate new streak (simplified - just increment for now)
+        const newStreak = (habitData.currentStreak || 0) + 1;
+        const totalCompletions = (habitData.totalCompletions || 0) + 1;
+        const longestStreak = Math.max(habitData.longestStreak || 0, newStreak);
+        
+        await updateDoc(doc(habitsCollection, habitDoc.id), {
+          currentStreak: newStreak,
+          totalCompletions: totalCompletions,
+          longestStreak: longestStreak,
+          lastCompletedAt: serverTimestamp()
+        });
+      }
+      
       return { id: docRef.id, completed: true };
     }
   } catch (error) {
@@ -247,7 +273,6 @@ export const calculateDailyScore = async (userId, date = new Date()) => {
     // Calculate scores
     habitsSnapshot.forEach((habitDoc) => {
       const habit = habitDoc.data();
-      possibleScore += habit.points || 0;
       
       // Check if this habit was completed today
       const completed = logsSnapshot.docs.some(logDoc => 
@@ -257,11 +282,14 @@ export const calculateDailyScore = async (userId, date = new Date()) => {
       if (completed) {
         const score = calculateHabitScore(habit.habitId, true, habit.currentStreak || 0);
         totalScore += score;
+        possibleScore += score; // Use actual score for completed habits
         completedHabits.push({
           habitId: habit.habitId,
           name: habit.name,
           score
         });
+      } else {
+        possibleScore += habit.points || 0; // Use base points for incomplete habits
       }
     });
     
