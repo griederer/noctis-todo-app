@@ -5,6 +5,7 @@ import Navigation from './components/Navigation';
 import TodoSection from './components/TodoSection';
 import JournalSection from './components/JournalSection';
 import SimpleHabitsSection from './components/SimpleHabitsSection';
+import DailyDashboard from './components/DailyDashboard';
 import HelixAnimation from './components/HelixAnimation';
 import Login from './components/Login';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -53,7 +54,15 @@ function App() {
           </ErrorBoundary>
           <main className="main-content">
             <Routes>
-              <Route path="/" element={<Navigate to="/todo" />} />
+              <Route path="/" element={<Navigate to="/today" />} />
+              <Route path="/today" element={
+                <SectionErrorBoundary 
+                  sectionName="Daily Dashboard" 
+                  fallbackMessage="There was an error loading your daily dashboard. Please try again."
+                >
+                  <DailyDashboard />
+                </SectionErrorBoundary>
+              } />
               <Route path="/todo" element={
                 <SectionErrorBoundary 
                   sectionName="Todo Section" 

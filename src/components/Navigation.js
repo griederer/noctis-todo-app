@@ -9,6 +9,10 @@ function Navigation() {
       <div className="scientific-notation coordinates" style={{ position: 'absolute', top: '5px', left: '10px', fontSize: '10px' }}>0,0</div>
       <div className="blueprint-element dimension-line" style={{ position: 'absolute', top: '5px', right: '50px' }}></div>
       
+      <NavLink to="/today" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+        <span className="nav-icon">🌅</span>
+        <span className="nav-text">Today</span>
+      </NavLink>
       <NavLink to="/todo" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
         <span className="nav-icon">✓</span>
         <span className="nav-text">Todo</span>
