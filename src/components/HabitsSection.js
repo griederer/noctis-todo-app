@@ -30,9 +30,11 @@ function HabitsSection() {
     
     try {
       const logs = await getTodayHabitLogs(user.uid);
+      console.log('Today logs:', logs);
       setTodayLogs(logs);
       
       const score = await calculateDailyScore(user.uid);
+      console.log('Calculated daily score:', score);
       setDailyScore(score);
     } catch (error) {
       console.error('Error loading today\'s data:', error);
@@ -90,8 +92,13 @@ function HabitsSection() {
 
   const handleCompleteHabit = async (habitId) => {
     try {
+      console.log('Completing habit:', habitId);
+      console.log('Daily score before:', dailyScore);
+      
       await logHabitCompletion(user.uid, habitId);
       await loadTodayData(); // Refresh today's data
+      
+      console.log('Daily score after:', dailyScore);
     } catch (error) {
       console.error('Error completing habit:', error);
     }

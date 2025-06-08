@@ -5,7 +5,6 @@ import {
   updateDoc, 
   query, 
   where, 
-  orderBy, 
   onSnapshot,
   serverTimestamp,
   getDocs
@@ -114,25 +113,31 @@ export const logHabitCompletion = async (userId, habitId, date = new Date(), not
   try {
     const dateStr = date.toDateString();
     
-    // Check if already logged for this date
+    // Check if already logged for this date (simplified query)
     const existingQuery = query(
       habitLogsCollection,
-      where('userId', '==', userId),
-      where('habitId', '==', habitId),
-      where('date', '==', dateStr)
+      where('userId', '==', userId)
     );
     
-    const existingLogs = await getDocs(existingQuery);
+    const existingSnapshot = await getDocs(existingQuery);
     
-    if (!existingLogs.empty) {
+    // Find existing log in memory
+    let existingLog = null;
+    existingSnapshot.forEach(doc => {
+      const data = doc.data();
+      if (data.habitId === habitId && data.date === dateStr) {
+        existingLog = { id: doc.id, ...data };
+      }
+    });
+    
+    if (existingLog) {
       // Update existing log
-      const logDoc = existingLogs.docs[0];
-      await updateDoc(doc(habitLogsCollection, logDoc.id), {
+      await updateDoc(doc(habitLogsCollection, existingLog.id), {
         completed: true,
         notes,
         updatedAt: serverTimestamp()
       });
-      return { id: logDoc.id, completed: true };
+      return { id: existingLog.id, completed: true };
     } else {
       // Create new log
       const docRef = await addDoc(habitLogsCollection, {
@@ -144,12 +149,11 @@ export const logHabitCompletion = async (userId, habitId, date = new Date(), not
         createdAt: serverTimestamp()
       });
       
-      // Update the habit's streak
+      // Update the habit's streak (simplified query)
       const habitQuery = query(
         habitsCollection,
         where('userId', '==', userId),
-        where('habitId', '==', habitId),
-        where('isActive', '==', true)
+        where('habitId', '==', habitId)
       );
       const habitSnapshot = await getDocs(habitQuery);
       
@@ -182,18 +186,21 @@ export const logHabitCompletion = async (userId, habitId, date = new Date(), not
 export const subscribeUserHabits = (userId, callback, errorCallback) => {
   const q = query(
     habitsCollection,
-    where('userId', '==', userId),
-    where('isActive', '==', true)
+    where('userId', '==', userId)
   );
   
   return onSnapshot(q, 
     (snapshot) => {
       const habits = [];
       snapshot.forEach((doc) => {
-        habits.push({
-          id: doc.id,
-          ...doc.data()
-        });
+        const data = doc.data();
+        // Filter for active habits in memory to avoid compound index
+        if (data.isActive !== false) {
+          habits.push({
+            id: doc.id,
+            ...data
+          });
+        }
       });
       // Sort by createdAt manually after fetching
       habits.sort((a, b) => {
@@ -213,22 +220,33 @@ export const getHabitLogs = async (userId, startDate, endDate) => {
     const startStr = startDate.toDateString();
     const endStr = endDate.toDateString();
     
+    // Simplified query - filter and sort in memory
     const q = query(
       habitLogsCollection,
-      where('userId', '==', userId),
-      where('date', '>=', startStr),
-      where('date', '<=', endStr),
-      orderBy('date', 'desc')
+      where('userId', '==', userId)
     );
     
     const snapshot = await getDocs(q);
     const logs = [];
     
     snapshot.forEach((doc) => {
-      logs.push({
-        id: doc.id,
-        ...doc.data()
-      });
+      const data = doc.data();
+      const logDate = data.date;
+      
+      // Filter date range in memory
+      if (logDate >= startStr && logDate <= endStr) {
+        logs.push({
+          id: doc.id,
+          ...data
+        });
+      }
+    });
+    
+    // Sort in memory
+    logs.sort((a, b) => {
+      if (a.date > b.date) return -1;
+      if (a.date < b.date) return 1;
+      return 0;
     });
     
     return logs;
@@ -248,39 +266,57 @@ export const getTodayHabitLogs = async (userId) => {
 export const calculateDailyScore = async (userId, date = new Date()) => {
   try {
     const dateStr = date.toDateString();
+    console.log('[calculateDailyScore] Starting calculation for date:', dateStr);
     
-    // Get user's active habits
+    // Get user's habits (filter active in memory)
     const habitsQuery = query(
       habitsCollection,
-      where('userId', '==', userId),
-      where('isActive', '==', true)
+      where('userId', '==', userId)
     );
     const habitsSnapshot = await getDocs(habitsQuery);
     
-    // Get completion logs for the date
+    // Filter active habits in memory
+    const activeHabits = [];
+    habitsSnapshot.forEach(doc => {
+      const data = doc.data();
+      if (data.isActive !== false) {
+        activeHabits.push({ id: doc.id, ...data });
+      }
+    });
+    console.log('[calculateDailyScore] Active habits found:', activeHabits.length);
+    
+    // Get completion logs for the date (simplified query)
     const logsQuery = query(
       habitLogsCollection,
       where('userId', '==', userId),
-      where('date', '==', dateStr),
-      where('completed', '==', true)
+      where('date', '==', dateStr)
     );
     const logsSnapshot = await getDocs(logsQuery);
+    
+    // Filter completed logs in memory
+    const completedLogs = [];
+    logsSnapshot.forEach(doc => {
+      const data = doc.data();
+      if (data.completed === true) {
+        completedLogs.push(data);
+      }
+    });
+    console.log('[calculateDailyScore] Completed habits today:', completedLogs.length);
     
     let totalScore = 0;
     let possibleScore = 0;
     const completedHabits = [];
     
-    // Calculate scores
-    habitsSnapshot.forEach((habitDoc) => {
-      const habit = habitDoc.data();
+    // Calculate scores using filtered data
+    activeHabits.forEach((habit) => {
+      console.log('[calculateDailyScore] Processing habit:', habit.name, 'ID:', habit.habitId, 'Streak:', habit.currentStreak);
       
       // Check if this habit was completed today
-      const completed = logsSnapshot.docs.some(logDoc => 
-        logDoc.data().habitId === habit.habitId
-      );
+      const completed = completedLogs.some(log => log.habitId === habit.habitId);
       
       if (completed) {
         const score = calculateHabitScore(habit.habitId, true, habit.currentStreak || 0);
+        console.log('[calculateDailyScore] Habit completed! Score:', score, 'Base points:', habit.points, 'Streak:', habit.currentStreak);
         totalScore += score;
         possibleScore += score; // Use actual score for completed habits
         completedHabits.push({
@@ -293,13 +329,16 @@ export const calculateDailyScore = async (userId, date = new Date()) => {
       }
     });
     
-    return {
+    const result = {
       totalScore,
       possibleScore,
       percentage: possibleScore > 0 ? Math.round((totalScore / possibleScore) * 100) : 0,
       completedHabits,
-      totalHabits: habitsSnapshot.size
+      totalHabits: activeHabits.length
     };
+    
+    console.log('[calculateDailyScore] Final result:', result);
+    return result;
   } catch (error) {
     console.error('Error calculating daily score:', error);
     throw error;
